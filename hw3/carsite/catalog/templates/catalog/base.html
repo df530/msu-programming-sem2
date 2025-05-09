@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сайт про автомобили</title>
+    <style>
+        /* Здесь можно добавить минимальные стили или подключить Bootstrap */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #efefef;
+            color: #333;
+            text-align: center;
+            padding: 10px 0;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'car_list' %}">Каталог автомобилей</a>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Сайт про автомобили</p>
+    </footer>
+</body>
+</html>
