@@ -1,0 +1,41 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<h1>{{ car.name }}</h1>
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <p><strong>Производитель:</strong> {{ car.company.name }}</p>
+    <p><strong>Страны производства:</strong></p>
+    <ul>
+      {% for country in car.countries.all %}
+        <li>{{ country.name }}</li>
+      {% endfor %}
+    </ul>
+
+    {% if car.cardescription %}
+      <p><strong>Полное описание:</strong></p>
+      <p>{{ car.cardescription.description }}</p>
+    {% else %}
+      <p><em>Описание отсутствует</em></p>
+    {% endif %}
+  </div>
+
+  <div class="col-md-6">
+    {% if car.cardescription and car.cardescription.image %}
+      <img 
+        src="{{ car.cardescription.image.url }}" 
+        alt="Фото автомобиля {{ car.name }}" 
+        class="img-fluid img-thumbnail"
+      >
+    {% else %}
+      <img 
+        src="https://via.placeholder.com/600x400?text=No+Image" 
+        alt="Нет изображения" 
+        class="img-fluid img-thumbnail"
+      >
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
