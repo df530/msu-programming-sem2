@@ -1,6 +1,5 @@
 from django.db import models
 
-from django.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название фирмы")
@@ -25,7 +24,11 @@ class Car(models.Model):
         related_name="cars",
         verbose_name="Фирма-производитель"
     )
-    countries = models.ManyToManyField(Country, related_name="cars", verbose_name="Страны производства")
+    countries = models.ManyToManyField(
+        Country,
+        related_name="cars",
+        verbose_name="Страны производства"
+    )
 
     def __str__(self):
         return self.name
@@ -33,7 +36,13 @@ class Car(models.Model):
 
 class CarDescription(models.Model):
     car = models.OneToOneField(Car, on_delete=models.CASCADE, verbose_name="Автомобиль")
-    description = models.TextField(verbose_name="Полное описание")
+    description = models.TextField(verbose_name="Полное описание", blank=True)
+    image = models.ImageField(
+        upload_to='car_images/',
+        blank=True,
+        null=True,
+        verbose_name="Фото автомобиля"
+    )
 
     def __str__(self):
         return f"Описание для {self.car.name}"

@@ -1,26 +1,41 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-<h1>Детальная информация об автомобиле</h1>
-<h2>{{ car.name }}</h2>
-<p>Производитель: {{ car.company.name }}</p>
+<h1>{{ car.name }}</h1>
+<hr>
 
-<p><strong>Список стран, в которых производится:</strong></p>
-<ul>
-    {% for country in car.countries.all %}
-    <li>{{ country.name }}</li>
-    {% endfor %}
-</ul>
+<div class="row">
+  <div class="col-md-6">
+    <p><strong>Производитель:</strong> {{ car.company.name }}</p>
+    <p><strong>Страны производства:</strong></p>
+    <ul>
+      {% for country in car.countries.all %}
+        <li>{{ country.name }}</li>
+      {% endfor %}
+    </ul>
 
-{% comment %}
-Поскольку CarDescription связана One-to-one с Car, 
-можно вывести, например, cardescription.description, 
-если связь есть в БД (через "cardescription" в обратном направлении).
-{% endcomment %}
-{% if car.cardescription %}
-<p><strong>Полное описание:</strong></p>
-<p>{{ car.cardescription.description }}</p>
-{% else %}
-<p><i>Описание отсутствует.</i></p>
-{% endif %}
+    {% if car.cardescription %}
+      <p><strong>Полное описание:</strong></p>
+      <p>{{ car.cardescription.description }}</p>
+    {% else %}
+      <p><em>Описание отсутствует</em></p>
+    {% endif %}
+  </div>
+
+  <div class="col-md-6">
+    {% if car.cardescription and car.cardescription.image %}
+      <img 
+        src="{{ car.cardescription.image.url }}" 
+        alt="Фото автомобиля {{ car.name }}" 
+        class="img-fluid img-thumbnail"
+      >
+    {% else %}
+      <img 
+        src="https://via.placeholder.com/600x400?text=No+Image" 
+        alt="Нет изображения" 
+        class="img-fluid img-thumbnail"
+      >
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
