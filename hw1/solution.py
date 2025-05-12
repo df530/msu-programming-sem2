@@ -28,3 +28,5 @@ visitor1 = Thread(target=ride.take_ticket, kwargs={"tickets_requested": 1}, name
 visitor2 = Thread(target=ride.take_ticket, kwargs={"tickets_requested": 1}, name="Bob")
 visitor1.start()
 visitor2.start()
+visitor1.join()
+visitor2.join()
